@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Заметки</string>
+
+    <string name="please_wait">Пожалуйста, подождите</string>
+    <string name="grid">Сетка</string>
+    <string name="delete">Delete</string>
+    <string name="note_title">Название</string>
+    <string name="content_hint_text">О чем вы думаете?</string>
+    <string name="pin_as_notification">Закрепить как уведомление</string>
+    <string name="share">Поделиться</string>
+    <string name="copy_to_clipboard">Копировать в буффер</string>
+    <string name="pick_color">Выбрать цвет</string>
+    <string name="save_changes">Сохранить изменения?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="cancel">Отмена</string>
+    <string name="cannot_save_empty_note">Невозможно сохранить пустую заметку</string>
+    <string name="notes">Заметки</string>
+    <string name="dialog_message">Вы действительно хотите удалить заметку?</string>
+    <string name="deleted">Удалено</string>
+    <string name="saved_toast_message_text">Сохранено</string>
+    <string name="updated_toast_message_text">Изменено</string>
+    <string name="copied_to_clipboard">Скопирована в буфер обмена</string>
+
+
+    //COLORS
+    <string-array name="md_color_array">
+        <item>@color/RED</item>
+        <item>@color/MAROON</item>
+        <item>@color/PURPLE</item>
+        <item>@color/INDIGO</item>
+        <item>@color/BLUE</item>
+        <item>@color/CYAN</item>
+        <item>@color/TEAL</item>
+        <item>@color/GREEN</item>
+        <item>@color/YELLOW</item>
+        <item>@color/ORANGE</item>
+        <item>@color/BROWN</item>
+        <item>@color/GREY</item>
+    </string-array>
+</resources>

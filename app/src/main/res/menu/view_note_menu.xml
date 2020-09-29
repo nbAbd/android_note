@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/view_note_delete"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:menuCategory="secondary"
+        android:orderInCategory="3"
+        android:title="@string/delete"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/view_note_share"
+        android:icon="@drawable/ic_share_36dp"
+        android:menuCategory="secondary"
+        android:orderInCategory="2"
+        android:title="@string/share"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/view_note_notify"
+        android:title="@string/pin_as_notification" />
+    <item
+        android:id="@+id/view_note_copy_clipboard"
+        android:title="@string/copy_to_clipboard" />
+</menu>

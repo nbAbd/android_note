@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.ui.main.view_note.ViewNoteViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/note_title_tv"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:autoLink="all"
+                    android:gravity="top"
+                    android:paddingTop="25dp"
+                    android:textColor="#000000"
+                    android:textIsSelectable="true"
+                    android:textStyle="bold"
+                    tools:text="title"
+                    tools:transitionName="transTitle" />
+
+                <TextView
+                    android:id="@+id/note_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/note_title_tv"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:gravity="right"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="#000000"
+                    tools:ignore="RtlHardcoded"
+                    tools:text="date"
+                    tools:transitionName="transDate" />
+
+                <TextView
+                    android:id="@+id/viewScreen_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/note_date_tv"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginRight="16dp"
+                    android:autoLink="all"
+                    android:gravity="top"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#000000"
+                    android:textIsSelectable="true"
+                    tools:text="content"
+                    tools:transitionName="transContent" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/view_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_create_black_24dp"
+            app:backgroundTint="@color/RED"
+            app:backgroundTintMode="src_over"
+            app:elevation="50dp"
+            tools:transitionName="fab" />
+
+    </RelativeLayout>
+</layout>

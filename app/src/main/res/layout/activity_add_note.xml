@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.ui.main.add_note.AddNoteViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/side_margin"
+                android:paddingEnd="@dimen/side_margin">
+
+                <EditText
+                    android:id="@+id/note_title_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:autofillHints="@string/note_title"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:hint="@string/note_title"
+                    android:inputType="text"
+                    android:paddingTop="25dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textStyle="bold"
+                    tools:ignore="UnusedAttribute"
+                    tools:text="@string/note_title"
+                    tools:transitionName="transTitle" />
+
+                <EditText
+                    android:id="@+id/note_content_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/note_title_et"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="35dp"
+                    android:autofillHints="@string/content_hint_text"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:hint="@string/content_hint_text"
+                    android:inputType="textMultiLine"
+                    android:paddingBottom="30dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    tools:ignore="UnusedAttribute"
+                    tools:text="@string/content_hint_text"
+                    tools:transitionName="transContent" />
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

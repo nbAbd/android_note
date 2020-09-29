@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.myapplication.data.local.db.entity.Note" />
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/custom_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        card_view:cardBackgroundColor='@{item.color != null ? Integer.valueOf(item.color) : @color/GREY }'
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="8dp"
+        card_view:cardMaxElevation="10dp"
+        card_view:cardPreventCornerOverlap="true"
+        card_view:contentPadding="5dp">
+
+        <RelativeLayout
+            android:id="@+id/custom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/row_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="5dp"
+                android:text="@{ item.title }"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="List title" />
+
+            <TextView
+                android:id="@+id/row_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/row_title"
+                android:layout_alignParentStart="true"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="6"
+                android:padding="5dp"
+                android:text="@{ item.content }"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:text="content" />
+
+            <TextView
+                android:id="@+id/row_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/row_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toStartOf="@id/check_note_iv"
+                android:gravity="bottom"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:text="@{ item.date }"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                tools:ignore="SmallSp"
+                tools:text="date" />
+
+            <ImageView
+                android:id="@+id/check_note_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/check_img_bg"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

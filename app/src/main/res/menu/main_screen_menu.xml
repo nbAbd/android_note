@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.toolbar.MainActivity">
+
+    <item
+        android:id="@+id/changeListGrid"
+        android:icon="@drawable/ic_dashboard_white_36"
+        android:orderInCategory="2"
+        android:title="@string/grid"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/delete_note"
+        android:icon="@drawable/ic_delete"
+        android:orderInCategory="1"
+        android:title="@string/delete"
+        android:visible="false"
+        app:showAsAction="always" />
+
+</menu>
