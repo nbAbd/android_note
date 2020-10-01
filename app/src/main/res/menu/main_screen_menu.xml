@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/changeListGrid"
-        android:icon="@drawable/ic_dashboard_white_36"
+        android:icon="@drawable/ic_grid"
         android:orderInCategory="2"
         android:title="@string/grid"
         app:showAsAction="ifRoom" />

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/view_note_delete"
-        android:icon="@drawable/ic_delete_white_24dp"
+        android:icon="@drawable/ic_delete"
         android:menuCategory="secondary"
         android:orderInCategory="3"
         android:title="@string/delete"
         app:showAsAction="always" />
     <item
         android:id="@+id/view_note_share"
-        android:icon="@drawable/ic_share_36dp"
+        android:icon="@drawable/ic_share"
         android:menuCategory="secondary"
         android:orderInCategory="2"
         android:title="@string/share"

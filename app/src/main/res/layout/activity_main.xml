@@ -44,9 +44,12 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add"
-            app:backgroundTint="@color/sage"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/azure"
             app:backgroundTintMode="src_atop"
-            app:elevation="30dp" />
+            app:elevation="50dp"
+            app:rippleColor="@color/GREY"
+            app:tint="@android:color/white" />
 
 
     </RelativeLayout>

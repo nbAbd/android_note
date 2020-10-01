@@ -21,6 +21,7 @@
     <string name="saved_toast_message_text">Сохранено</string>
     <string name="updated_toast_message_text">Изменено</string>
     <string name="copied_to_clipboard">Скопирована в буфер обмена</string>
+    <string name="add">добавить</string>
 
 
     //COLORS

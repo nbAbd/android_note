@@ -28,21 +28,19 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <TextView
                     android:id="@+id/note_title_tv"
                     style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:autoLink="all"
                     android:gravity="top"
                     android:paddingTop="25dp"
-                    android:textColor="#000000"
+                    android:textColor="@color/textColorDefault"
                     android:textIsSelectable="true"
-                    android:textStyle="bold"
                     tools:text="title"
                     tools:transitionName="transTitle" />
 
@@ -52,13 +50,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/note_title_tv"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:gravity="right"
+                    android:textAlignment="viewEnd"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="#000000"
-                    tools:ignore="RtlHardcoded"
+                    android:textColor="@color/textColorDefault"
                     tools:text="date"
                     tools:transitionName="transDate" />
 
@@ -67,13 +61,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/note_date_tv"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginRight="16dp"
-                    android:autoLink="all"
-                    android:gravity="top"
+                    android:layout_marginTop="40dp"
+                    android:textAlignment="viewStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="#000000"
+                    android:textColor="@color/textColorDefault"
                     android:textIsSelectable="true"
                     tools:text="content"
                     tools:transitionName="transContent" />
@@ -89,10 +80,11 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_create_black_24dp"
-            app:backgroundTint="@color/RED"
-            app:backgroundTintMode="src_over"
+            android:src="@drawable/ic_edit"
+            app:backgroundTint="@color/azure"
+            app:backgroundTintMode="src_atop"
             app:elevation="50dp"
+            app:tint="@android:color/white"
             tools:transitionName="fab" />
 
     </RelativeLayout>

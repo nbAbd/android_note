@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
@@ -55,19 +54,11 @@ class NotesAdapter : RecyclerView.Adapter<BaseViewHolder>() {
         override fun onBind(position: Int, isActivated: Boolean) {
             binding.item = notesList[position]
             binding.executePendingBindings()
-
+            binding.isSelected = isActivated
             binding.root.setOnClickListener {
-                onClickListener?.onClick(notesList[position])
-            }
-
-            binding.root.setOnLongClickListener {
-                onClickListener?.onLongClick(position)
-                true
-            }
-
-            if (isActivated) {
-                binding.checkNoteIv.visibility = View.VISIBLE
-                binding.checkNoteIv.isActivated = isActivated
+                if (!isActivated) {
+                    onClickListener?.onClick(notesList[position])
+                }
             }
         }
 
@@ -76,12 +67,9 @@ class NotesAdapter : RecyclerView.Adapter<BaseViewHolder>() {
                 override fun getPosition(): Int = layoutPosition
                 override fun getSelectionKey(): Long? = itemId
             }
-
     }
 
     interface OnNoteItemClickListener {
         fun onClick(note: Note)
-
-        fun onLongClick(position: Int)
     }
 }

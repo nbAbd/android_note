@@ -5,9 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.example.myapplication.data.local.db.entity.Note" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
     </data>
 
 
@@ -39,7 +45,7 @@
                 android:padding="5dp"
                 android:text="@{ item.title }"
                 android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:textColor="@color/textColorDefault"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="List title" />
@@ -50,13 +56,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/row_title"
                 android:layout_alignParentStart="true"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:maxLines="6"
+                android:gravity="start|top"
                 android:padding="5dp"
                 android:text="@{ item.content }"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:textColor="@color/textColorDefault"
                 android:textSize="15sp"
                 tools:text="content" />
 
@@ -67,29 +70,27 @@
                 android:layout_below="@id/row_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@id/check_note_iv"
+                android:layout_toStartOf="@id/check_box"
                 android:gravity="bottom"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:text="@{ item.date }"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000"
+                android:textColor="@color/textColorDefault"
                 android:textSize="10sp"
                 tools:ignore="SmallSp"
                 tools:text="date" />
 
-            <ImageView
-                android:id="@+id/check_note_iv"
+            <CheckBox
+                android:id="@+id/check_box"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="2dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/check_img_bg"
-                android:visibility="gone"
-                tools:ignore="ContentDescription" />
+                android:button="@drawable/check_box_bg"
+                android:checked="@{ isSelected }"
+                android:visibility="@{ isSelected? View.VISIBLE: View.GONE}" />
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>
