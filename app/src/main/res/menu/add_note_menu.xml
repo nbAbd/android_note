@@ -5,7 +5,7 @@
     tools:context="com.example.toolbar.MainActivity">
     <item
         android:id="@+id/pick_color"
-        android:icon="@drawable/ic_palette_36dp"
+        android:icon="@drawable/ic_palette"
         android:menuCategory="secondary"
         android:orderInCategory="2"
         android:title="@string/pick_color"

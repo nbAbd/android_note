@@ -7,7 +7,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
     android:minHeight="?attr/actionBarSize"
-    app:navigationIcon="@drawable/ic_icon_back_arrow"
+    app:navigationIcon="@drawable/ic_back"
     app:titleTextColor="@color/colorOnPrimary"
     tools:showIn="@layout/activity_main">
 

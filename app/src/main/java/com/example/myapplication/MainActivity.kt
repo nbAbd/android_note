@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.Observer
+import androidx.appcompat.view.ActionMode
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -23,11 +23,10 @@ import com.example.myapplication.ui.main.add_note.AddNoteActivity
 import com.example.myapplication.ui.main.view_note.ViewNoteActivity
 import com.example.myapplication.utils.MyItemDetailsLookup
 import com.example.myapplication.utils.MyItemKeyProvider
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel>(),
-    MainActivityNavigator, NotesAdapter.OnNoteItemClickListener {
+    MainActivityNavigator, NotesAdapter.OnNoteItemClickListener, ActionMode.Callback {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -43,7 +42,8 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mCustomMenu: Menu
     private var mTracker: SelectionTracker<Long>? = null
-    private var selectedNoteIds: List<Int?> = listOf(null)
+    private var selectedNoteIds: List<Int>? = null
+    private var mActionMode: ActionMode? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,8 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
 
         setUp()
         setUpRecyclerView()
-
+        fetchNotes()
+        setUpAdapter()
         mBinding.newNoteFab.setOnClickListener {
             startActivity(AddNoteActivity.getStartIntent(this))
         }
@@ -62,7 +63,6 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
     private fun setUp() {
         initToolbar(R.id.toolbar, R.string.notes)
         setHomeAsUp(false)
-        fetchNotes()
     }
 
     private fun setUpRecyclerView() {
@@ -75,8 +75,7 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
         mBinding.recyclerView.scrollToPosition(0)
     }
 
-    private fun setUpAdapter(notes: List<Note>) {
-        mAdapter.setItems(notes)
+    private fun setUpAdapter() {
         mBinding.recyclerView.adapter = mAdapter
         mAdapter.setOnNoteItemClickListener(this)
         mAdapter.notifyDataSetChanged()
@@ -84,11 +83,11 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
     }
 
     private fun setUpTracker() {
-        mTracker = SelectionTracker.Builder<Long>(
-            "noteSelection",
-            recycler_view,
-            MyItemKeyProvider(recycler_view),
-            MyItemDetailsLookup(recycler_view),
+        mTracker = SelectionTracker.Builder(
+            "multi_selection",
+            mBinding.recyclerView,
+            MyItemKeyProvider(mBinding.recyclerView),
+            MyItemDetailsLookup(mBinding.recyclerView),
             StorageStrategy.createLongStorage()
         ).withSelectionPredicate(
             SelectionPredicates.createSelectAnything()
@@ -98,10 +97,20 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
             object : SelectionTracker.SelectionObserver<Long>() {
                 override fun onSelectionChanged() {
                     super.onSelectionChanged()
-                    selectedNoteIds = mTracker?.selection!!.map {
-                        mAdapter.notesList[it.toInt()].id
-                    }.toList()
-                    mCustomMenu.findItem(R.id.delete_note).isVisible = mTracker?.hasSelection()!!
+                    mTracker?.let {
+                        selectedNoteIds = null
+                        selectedNoteIds =
+                            mTracker!!.selection.map { mAdapter.notesList[it.toInt()].id!! }
+
+                        if (selectedNoteIds!!.isEmpty()) {
+                            mActionMode?.finish()
+                        } else {
+                            if (mActionMode == null) mActionMode =
+                                startSupportActionMode(this@MainActivity)
+                            mActionMode?.title = "Выбрано: ${selectedNoteIds!!.size}"
+                        }
+                        mBinding.newNoteFab.isEnabled = !mTracker!!.hasSelection()
+                    }
                 }
             }
         )
@@ -109,8 +118,8 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
     }
 
     private fun fetchNotes() {
-        mViewModel.notesList.observe(this, Observer {
-            setUpAdapter(it)
+        mViewModel.notesList.observe(this, {
+            mAdapter.setItems(items = it)
         })
     }
 
@@ -119,9 +128,9 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
         menuInflater.inflate(R.menu.main_screen_menu, menu)
 
         if (mPref.isGrid()) {
-            mCustomMenu.findItem(R.id.changeListGrid).setIcon(R.drawable.ic_dashboard_white_36)
+            mCustomMenu.findItem(R.id.changeListGrid).setIcon(R.drawable.ic_grid)
         } else {
-            mCustomMenu.findItem(R.id.changeListGrid).setIcon(R.drawable.ic_horizontal_white_36dp)
+            mCustomMenu.findItem(R.id.changeListGrid).setIcon(R.drawable.ic_list)
         }
         return true
     }
@@ -132,12 +141,12 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
                 mPref.setGrid(!mPref.isGrid())
                 if (mPref.isGrid()) {
                     mCustomMenu.findItem(R.id.changeListGrid)
-                        .setIcon(R.drawable.ic_dashboard_white_36)
+                        .setIcon(R.drawable.ic_grid)
                     mBinding.recyclerView.layoutManager =
                         StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 } else {
                     mCustomMenu.findItem(R.id.changeListGrid)
-                        .setIcon(R.drawable.ic_horizontal_white_36dp)
+                        .setIcon(R.drawable.ic_list)
                     mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
                 }
             }
@@ -147,8 +156,10 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
     }
 
     private fun deleteMultipleNotes() {
-        mViewModel.deleteMultipleNotesById(selectedNoteIds)
-        mAdapter.notifyDataSetChanged()
+        selectedNoteIds?.let {
+            mViewModel.deleteMultipleNotesById(it)
+            mAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun onResume() {
@@ -175,12 +186,32 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
         startActivity(ViewNoteActivity.getStartIntent(this, note.id!!))
     }
 
-    override fun onLongClick(position: Int) {
-        setUpTracker()
-        /*val menuItem = mCustomMenu.findItem(R.id.delete_note)
-        menuItem.isVisible = true
-   */
+    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+        mode?.let { mode.menuInflater.inflate(R.menu.action_mode_menu, menu) }
+        return true
     }
 
+    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+        return false
+    }
+
+    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.delete_note -> {
+                deleteMultipleNotes()
+                showToast(R.string.deleted)
+                mode?.finish()
+                true
+            }
+            else -> false
+        }
+    }
+
+    override fun onDestroyActionMode(mode: ActionMode?) {
+        mTracker?.clearSelection()
+        selectedNoteIds = null
+        mAdapter.notifyDataSetChanged()
+        mActionMode = null
+    }
 
 }
