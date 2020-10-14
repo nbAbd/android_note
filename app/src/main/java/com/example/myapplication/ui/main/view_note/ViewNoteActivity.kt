@@ -8,13 +8,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.NotificationCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.afollestad.materialdialogs.MaterialDialog
 import com.example.myapplication.App
@@ -25,6 +25,7 @@ import com.example.myapplication.databinding.ActivityViewNoteBinding
 import com.example.myapplication.di.di_utils.ViewModelFactory
 import com.example.myapplication.ui.base.BaseMVVMActivity
 import com.example.myapplication.ui.main.add_note.AddNoteActivity
+import com.example.myapplication.utils.AppUtils
 import javax.inject.Inject
 
 class ViewNoteActivity : BaseMVVMActivity<ActivityViewNoteBinding, ViewNoteViewModel>(),
@@ -67,7 +68,7 @@ class ViewNoteActivity : BaseMVVMActivity<ActivityViewNoteBinding, ViewNoteViewM
 
     private fun fetchNote() {
         val noteId = intent.getIntExtra(NOTE_ID_KEY, -1)
-        mViewModel.getNoteById(noteId).observe(this, Observer {
+        mViewModel.getNoteById(noteId).observe(this, {
             mNote = it
             populateData(it)
         })
@@ -77,13 +78,21 @@ class ViewNoteActivity : BaseMVVMActivity<ActivityViewNoteBinding, ViewNoteViewM
         mBinding.noteTitleTv.text = note?.title ?: ""
         mBinding.noteDateTv.text = note?.date ?: ""
         mBinding.viewScreenContent.text = note?.content ?: ""
+        note?.imgUri?.let {
+            mBinding.viewScreenContent.append(
+                AppUtils.toSpannableString(
+                    AppUtils.toRoundedBitmapDrawable(this, Uri.parse(it)),
+                    null
+                )
+            )
+        }
         val color = note?.color?.toInt()
         color?.let { setDefaultColor(it) }
     }
 
     private fun setDefaultColor(color: Int) {
         mBinding.root.setBackgroundColor(color)
-        mBinding.toolbar.setBackgroundColor(color)
+        mBinding.toolbar.toolbar.setBackgroundColor(color)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = color
         }
@@ -165,6 +174,9 @@ class ViewNoteActivity : BaseMVVMActivity<ActivityViewNoteBinding, ViewNoteViewM
     }
 
     private fun deleteNote() {
+        mNote?.imgUri?.let {
+            AppUtils.deleteImageFromUri(it)
+        }
         mNote?.let { mViewModel.deleteNote(it) }
         showToast(R.string.deleted)
         supportFinishAfterTransition()

@@ -19,7 +19,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/custom_card"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -29,17 +29,29 @@
         card_view:cardCornerRadius="8dp"
         card_view:cardElevation="8dp"
         card_view:cardMaxElevation="10dp"
-        card_view:cardPreventCornerOverlap="true"
-        card_view:contentPadding="5dp">
+        card_view:cardPreventCornerOverlap="true">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/custom_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/row_img"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:image='@{ item.imgUri != null? item.imgUri : null }'
+                android:scaleType="centerCrop"
+                android:visibility="@{ item.imgUri != null? View.VISIBLE : View.GONE }"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/placeholder" />
+
             <TextView
                 android:id="@+id/row_title"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:padding="5dp"
@@ -48,50 +60,55 @@
                 android:textColor="@color/textColorDefault"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@id/row_img"
                 tools:text="List title" />
 
             <TextView
                 android:id="@+id/row_content"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/row_title"
-                android:layout_alignParentStart="true"
                 android:gravity="start|top"
                 android:padding="5dp"
                 android:text="@{ item.content }"
                 android:textColor="@color/textColorDefault"
                 android:textSize="15sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@id/row_title"
                 tools:text="content" />
 
             <TextView
                 android:id="@+id/row_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/row_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@id/check_box"
                 android:gravity="bottom"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
+                android:paddingBottom="8dp"
                 android:text="@{ item.date }"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/textColorDefault"
                 android:textSize="10sp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@id/row_content"
                 tools:ignore="SmallSp"
                 tools:text="date" />
 
             <CheckBox
                 android:id="@+id/check_box"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="2dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="5dp"
                 android:button="@drawable/check_box_bg"
                 android:checked="@{ isSelected }"
-                android:visibility="@{ isSelected? View.VISIBLE: View.GONE}" />
-        </RelativeLayout>
+                android:visibility="@{ isSelected? View.VISIBLE: View.GONE}"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

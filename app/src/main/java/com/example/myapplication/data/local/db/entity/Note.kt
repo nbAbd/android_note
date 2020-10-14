@@ -8,6 +8,7 @@ import java.io.Serializable
 data class Note(
     var title: String?,
     var content: String?,
+    var imgUri: String?,
     var color: String?,
     var date: String?
 ) : Serializable {

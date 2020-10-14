@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
 
@@ -31,47 +32,54 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingStart="@dimen/side_margin"
                 android:paddingEnd="@dimen/side_margin">
 
                 <EditText
                     android:id="@+id/note_title_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:autofillHints="@string/note_title"
                     android:background="@drawable/md_transparent"
                     android:gravity="top|start"
                     android:hint="@string/note_title"
                     android:inputType="textMultiLine"
+                    android:maxLines="3"
                     android:paddingTop="25dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/textColorDefault"
+                    app:layout_constraintBottom_toTopOf="@id/note_content_et"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="UnusedAttribute"
                     tools:text="@string/note_title"
                     tools:transitionName="transTitle" />
 
                 <EditText
                     android:id="@+id/note_content_et"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/note_title_et"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="40dp"
                     android:autofillHints="@string/content_hint_text"
                     android:background="@drawable/md_transparent"
-                    android:gravity="start|top"
                     android:hint="@string/content_hint_text"
                     android:inputType="textMultiLine"
-                    android:paddingBottom="30dp"
+                    android:lineSpacingExtra="8dp"
+                    android:paddingTop="40dp"
+                    android:paddingBottom="8dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/textColorDefault"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/note_title_et"
                     tools:text="@string/content_hint_text"
                     tools:transitionName="transContent" />
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
     </RelativeLayout>

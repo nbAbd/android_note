@@ -128,9 +128,9 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
         menuInflater.inflate(R.menu.main_screen_menu, menu)
 
         if (mPref.isGrid()) {
-            mCustomMenu.findItem(R.id.changeListGrid).setIcon(R.drawable.ic_grid)
-        } else {
             mCustomMenu.findItem(R.id.changeListGrid).setIcon(R.drawable.ic_list)
+        } else {
+            mCustomMenu.findItem(R.id.changeListGrid).setIcon(R.drawable.ic_grid)
         }
         return true
     }
@@ -141,12 +141,12 @@ class MainActivity : BaseMVVMActivity<ActivityMainBinding, MainActivityViewModel
                 mPref.setGrid(!mPref.isGrid())
                 if (mPref.isGrid()) {
                     mCustomMenu.findItem(R.id.changeListGrid)
-                        .setIcon(R.drawable.ic_grid)
+                        .setIcon(R.drawable.ic_list)
                     mBinding.recyclerView.layoutManager =
                         StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                 } else {
                     mCustomMenu.findItem(R.id.changeListGrid)
-                        .setIcon(R.drawable.ic_list)
+                        .setIcon(R.drawable.ic_grid)
                     mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
                 }
             }
