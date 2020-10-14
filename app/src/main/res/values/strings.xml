@@ -22,6 +22,7 @@
     <string name="updated_toast_message_text">Изменено</string>
     <string name="copied_to_clipboard">Скопирована в буфер обмена</string>
     <string name="add">добавить</string>
+    <string name="add_photo">Добавить фото</string>
 
 
     //COLORS
